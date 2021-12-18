@@ -18,8 +18,24 @@ header {
     justify-content: space-between;
 }
 
+.hidden {
+    display: none;
+}
+
 main {
     display: flex;
     flex-direction: column;
     text-align: center;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+button {
+    background: purple;
+    padding: 1%;
+    border-radius: 8px;
+}
+
+button:hover {
+    background: plum;
 }
