@@ -1,0 +1,50 @@
+<!--AS A coding boot camp student
+I WANT to take a timed quiz on JavaScript fundamentals that stores high scores
+SO THAT I can gauge my progress compared to my peers
+
+GIVEN I am taking a code quiz
+WHEN I click the start button
+THEN a timer starts and I am presented with a question
+WHEN I answer a question
+THEN I am presented with another question
+WHEN I answer a question incorrectly
+THEN time is subtracted from the clock
+WHEN all questions are answered or the timer reaches 0
+THEN the game is over
+WHEN the game is over
+THEN I can save my initials and score-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>CodeQuiz</title>
+  <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body>
+    <header>
+        <h4 class="page-title">View high scores</h4>
+        <h4 class="timer">Time: (#)</h4>
+    </header>
+    
+    <main class="page-content" id="page-content">
+        <section class="quiz-wrapper">
+            <!--Quiz Question-->
+            <h2 class="quiz-title">Coding Quiz Challenge</h2>
+            <p>Question Placeholder</p>
+        </section>
+        <section class="quiz-wrapper">
+            <!--Quiz Options-->
+            <p class="quiz-options">Options Placeholder 1</p>
+            <p class="quiz-options">Options Placeholder 2</p>
+            <p class="quiz-options">Options Placeholder 3</p>
+            <p class="quiz-options">Options Placeholder 4</p>
+        </section>
+    </main>
+
+    <script src="./assets/js/script.js"></script>
+</body>
