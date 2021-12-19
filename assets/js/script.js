@@ -69,35 +69,44 @@ var hiddenQuiz = document.getElementById("quizOptions");
 var hiddenScore = document.getElementById("highScore");
 var quizInit = document.getElementById("quizInitialPage");
 var result = document.getElementById("result");
+var scoreH2 = document.getElementById("scoreH2");
 
 //question counter global variable
 var questionNumber = 0;
 
-// var goBackButton = function(event) {
-//     var btnClicked = event.target;
-//     console.log(btnClicked);
-//     console.log("goback");
-//     //stop timer
-//     //reset timer
-//     //hide highscore
-//     hiddenScore.className = "hidden";
-//     //unhide quizInitialPage
-//     quizInit.classList.remove("hidden");
-// };
+//highscore counter global variable
+var highScore = 0;
+var currentHighScore
 
-// goBackBtn.addEventListener("click", function(event) {
-//     goBackButton(event);
-// });
+var goBackButton = function(event) {
+    var btnClicked = event.target;
+    console.log(btnClicked);
+    //stop & reset timer
+    //set currentHighScore to 0
+    //hide highscore
+    hiddenScore.className = "hidden";
+    //unhide quizInitialPage
+    quizInit.classList.remove("hidden");
+};
 
-// var submitBtn = function() {
-//     console.log("submit");
-// }
+goBackBtn.addEventListener("click", function(event) {
+    goBackButton(event);
+});
 
-// submitBtn.addEventListener("click", submitBtn);
+var submitButton = function(event) {
+    var btnClicked = event.target;
+    console.log(btnClicked);
+    console.log("submit");
+};
+
+submitBtn.addEventListener("click", function(event) {
+    submitButton(event);
+});
 
 var startButton = function(questionNumber) {
-    //hide initial page
-    //add class to quizInitialPage
+    //Start Button: when clicked, starts the quiz, initiates the timer countdown at 75.
+    //set timer to 75 seconds
+    //hide initial page by adding hidden class to quizInit
     quizInit.className = "hidden";
 
     //unhide quizOptions
@@ -133,15 +142,20 @@ var startButton = function(questionNumber) {
     var answerButton = function(event) {
         var btnClicked = event.target.textContent;
         console.log(btnClicked);
+        //Correct Choice Button: when clicked, responds "correct!", takes to next question or highscore page
         if (btnClicked === objArray[questionNumber].answer) {
             console.log("correctresponse");
             result.classList.remove("hidden");
             result.textContent = "Correct Answer!"
+            highScore ++;
             questionNumber ++;
             //go to next question by increasing questionNumber by 1, check if equal to array length, then go next question or end quiz
             if (questionNumber === objArray.length) {
                 //show highscore
                 hiddenScore.classList.remove("hidden");
+                console.log(highScore);
+                console.log(scoreH2.textContent);
+                scoreH2.textContent = "All done! Your final score is " + highScore;
                 //hide quizOptions
                 hiddenQuiz.className = "hidden";
             }
@@ -149,12 +163,16 @@ var startButton = function(questionNumber) {
                 startButton(questionNumber);
             }
         }
+        //Wrong Choice Button: when clicked, responds "wrong!", lowers countdown by 10 seconds or highscore page
         else {
             console.log("wrongresponse");
             result.classList.remove("hidden");
             result.textContent = "Wrong Answer!"
             questionNumber ++;
             if (questionNumber === objArray.length) {
+                console.log(highScore);
+                console.log(scoreH2.textContent);
+                scoreH2.textContent = "All done! Your final score is " + highScore;
                 //show highscore
                 hiddenScore.classList.remove("hidden");
                 //hide quizOptions
@@ -171,10 +189,6 @@ startBtn.addEventListener("click", function() {
 });
 
 
-//STEP 2: Button Clicks
-//Start Button: when clicked, starts the quiz, initiates the timer countdown at 75.
-//Correct Choice Button: when clicked, responds "correct!", takes to next question
-//Wrong Choice Button: when clicked, responds "wrong!", lowers countdown by 10 seconds
 //High Score Button: changes page to show locally stored high scores.
 
 //STEP 3: Timer
