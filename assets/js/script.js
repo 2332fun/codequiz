@@ -74,13 +74,12 @@ var questionNumber = 0;
 
 //highscore counter global variable
 var highScore = 0;
-// var currentHighScore = 0;
 
+//go back to quizInit page without submitting name/highscore
 var goBackButton = function(event) {
     var btnClicked = event.target;
     console.log(btnClicked);
     //stop & reset timer
-    //set currentHighScore to 0
     //hide highscore
     hiddenScore.className = "hidden";
     //unhide quizInitialPage
@@ -90,6 +89,7 @@ var goBackButton = function(event) {
     highScore = 0;
 };
 
+//go back to the main quiz Init page from the resultsPage
 var goBackButton2 = function(event) {
     var btnClicked = event.target;
     console.log(btnClicked);
@@ -98,6 +98,7 @@ var goBackButton2 = function(event) {
     goBackBtn2.className = "hidden";
 };
 
+//submit name and highscore and return to the quizInit page
 var submitButton = function(event) {
     var btnClicked = event.target;
     console.log(btnClicked);
@@ -259,13 +260,8 @@ hsBtn.addEventListener("click", function(event) {
 
 //STEP 4: High Score
 //If completed before timer is out, grabs timer #, stores it as highscore
-//Locally store highscore
-//Allow user textinput Name
 //Locally store name and highscore
 
-
-
-// Set up highscores
 // Set up local Storage
 // Set up Timer
 // Fill out questions
