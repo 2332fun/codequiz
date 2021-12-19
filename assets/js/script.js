@@ -53,31 +53,47 @@ var objArray = [{
     answer: "Button 4 Text question 4"
 }];
 
-//get btn1's Id from document, turn it into variable btn1
+//option btn global variables
 var btn1 = document.getElementById("btn1");
 var btn2 = document.getElementById("btn2");
 var btn3 = document.getElementById("btn3");
 var btn4 = document.getElementById("btn4");
 
+//page changing btn global variables
 var startBtn = document.getElementById("startBtn");
 var goBackBtn = document.getElementById("goBackBtn");
 var submitBtn = document.getElementById("submitBtn");
 
+//hide/reveal global variables
 var hiddenQuiz = document.getElementById("quizOptions");
 var hiddenScore = document.getElementById("highScore");
-var questionNumber = 0;
 var quizInit = document.getElementById("quizInitialPage");
+var result = document.getElementById("result");
 
-var goBackBtn = function() {
-    //
-}
+//question counter global variable
+var questionNumber = 0;
 
-var submitBtn = function() {
-    //
-}
+// var goBackButton = function(event) {
+//     var btnClicked = event.target;
+//     console.log(btnClicked);
+//     console.log("goback");
+//     //stop timer
+//     //reset timer
+//     //hide highscore
+//     hiddenScore.className = "hidden";
+//     //unhide quizInitialPage
+//     quizInit.classList.remove("hidden");
+// };
 
-goBackBtn.addEventListener("click", goBackBtn);
-submitBtn.addEventListener("click", submitBtn);
+// goBackBtn.addEventListener("click", function(event) {
+//     goBackButton(event);
+// });
+
+// var submitBtn = function() {
+//     console.log("submit");
+// }
+
+// submitBtn.addEventListener("click", submitBtn);
 
 var startButton = function(questionNumber) {
     //hide initial page
@@ -98,7 +114,7 @@ var startButton = function(questionNumber) {
     btn2.textContent = objArray[questionNumber].btn2;
     btn3.textContent = objArray[questionNumber].btn3;
     btn4.textContent = objArray[questionNumber].btn4;
-}
+};
 
     //when btn1 is clicked, listen to event, store event in answerButton function, call answerButton function
     btn1.addEventListener("click", function(event){
@@ -119,6 +135,8 @@ var startButton = function(questionNumber) {
         console.log(btnClicked);
         if (btnClicked === objArray[questionNumber].answer) {
             console.log("correctresponse");
+            result.classList.remove("hidden");
+            result.textContent = "Correct Answer!"
             questionNumber ++;
             //go to next question by increasing questionNumber by 1, check if equal to array length, then go next question or end quiz
             if (questionNumber === objArray.length) {
@@ -133,6 +151,8 @@ var startButton = function(questionNumber) {
         }
         else {
             console.log("wrongresponse");
+            result.classList.remove("hidden");
+            result.textContent = "Wrong Answer!"
             questionNumber ++;
             if (questionNumber === objArray.length) {
                 //show highscore
@@ -144,7 +164,7 @@ var startButton = function(questionNumber) {
                 startButton(questionNumber);
             }
         }
-    }
+    };
 
 startBtn.addEventListener("click", function() {
     startButton(questionNumber);

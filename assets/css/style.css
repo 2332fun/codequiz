@@ -30,6 +30,12 @@ main {
     padding-right: 10%;
 }
 
+footer {
+    margin-top: 2%;
+    padding: 2%;
+    border-top: 5px outset lightgray;
+}
+
 button {
     background: purple;
     padding: 1%;
