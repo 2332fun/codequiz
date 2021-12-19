@@ -14,12 +14,7 @@
 // WHEN the game is over
 // THEN I can save my initials and score
 
-//STEP 1: Create Page Layout
-//Initial Page: Quiz Title (H2)
-//Initial Page: Quiz Prompt (p)
-//Started Quiz: Question (H1)
-//Started Quiz: 4 Button Options (1 correct, 3 wrong)
-//Started Quiz: footer with top border reveals "correct" or "wrong"
+//array for questions, options, and correct answer
 var objArray = [{
     question:"Placeholder question 1",
     btn1:"Button 1 Text question 1",
@@ -63,6 +58,7 @@ var btn4 = document.getElementById("btn4");
 var startBtn = document.getElementById("startBtn");
 var goBackBtn = document.getElementById("goBackBtn");
 var submitBtn = document.getElementById("submitBtn");
+var hsBtn = document.getElementById("hsBtn");
 
 //hide/reveal global variables
 var hiddenQuiz = document.getElementById("quizOptions");
@@ -70,13 +66,14 @@ var hiddenScore = document.getElementById("highScore");
 var quizInit = document.getElementById("quizInitialPage");
 var result = document.getElementById("result");
 var scoreH2 = document.getElementById("scoreH2");
+var resultsPage = document.getElementById("resultsPage");
 
 //question counter global variable
 var questionNumber = 0;
 
 //highscore counter global variable
 var highScore = 0;
-var currentHighScore
+// var currentHighScore = 0;
 
 var goBackButton = function(event) {
     var btnClicked = event.target;
@@ -89,19 +86,36 @@ var goBackButton = function(event) {
     quizInit.classList.remove("hidden");
 };
 
-goBackBtn.addEventListener("click", function(event) {
-    goBackButton(event);
-});
-
 var submitButton = function(event) {
     var btnClicked = event.target;
     console.log(btnClicked);
     console.log("submit");
+    var name = document.getElementById("name").value;
+
+    //if the input is null, give an alert. if not, store the input
+    if(document.getElementById("name").value == "")
+    {
+    alert("You can't leave an empty name.");
+    }
+    else {
+    //hide highscore
+    hiddenScore.className = "hidden";
+    //unhide quizInitialPage
+    quizInit.classList.remove("hidden");
+    console.log(name);
+    }
 };
 
-submitBtn.addEventListener("click", function(event) {
-    submitButton(event);
-});
+//High Score Button: changes page to show locally stored high scores.
+var hsButton = function(event) {
+    var btnClicked = event.target;
+    console.log(btnClicked);
+    console.log("highscore");
+    hiddenScore.className = "hidden";
+    quizInit.className = "hidden";
+    hiddenQuiz.className = "hidden";
+    resultsPage.classList.remove("hidden");
+};
 
 var startButton = function(questionNumber) {
     //Start Button: when clicked, starts the quiz, initiates the timer countdown at 75.
@@ -146,7 +160,7 @@ var startButton = function(questionNumber) {
         if (btnClicked === objArray[questionNumber].answer) {
             console.log("correctresponse");
             result.classList.remove("hidden");
-            result.textContent = "Correct Answer!"
+            result.textContent = "Correct Answer!";
             highScore ++;
             questionNumber ++;
             //go to next question by increasing questionNumber by 1, check if equal to array length, then go next question or end quiz
@@ -158,6 +172,8 @@ var startButton = function(questionNumber) {
                 scoreH2.textContent = "All done! Your final score is " + highScore;
                 //hide quizOptions
                 hiddenQuiz.className = "hidden";
+                //hide answer result
+                result.className = "hidden";
             }
             else {
                 startButton(questionNumber);
@@ -167,7 +183,7 @@ var startButton = function(questionNumber) {
         else {
             console.log("wrongresponse");
             result.classList.remove("hidden");
-            result.textContent = "Wrong Answer!"
+            result.textContent = "Wrong Answer!";
             questionNumber ++;
             if (questionNumber === objArray.length) {
                 console.log(highScore);
@@ -177,6 +193,8 @@ var startButton = function(questionNumber) {
                 hiddenScore.classList.remove("hidden");
                 //hide quizOptions
                 hiddenQuiz.className = "hidden";
+                //hide answer result
+                result.className = "hidden";
             }
             else {
                 startButton(questionNumber);
@@ -184,12 +202,26 @@ var startButton = function(questionNumber) {
         }
     };
 
+//button event listeners
+
 startBtn.addEventListener("click", function() {
     startButton(questionNumber);
 });
 
+goBackBtn.addEventListener("click", function(event) {
+    goBackButton(event);
+});
 
-//High Score Button: changes page to show locally stored high scores.
+submitBtn.addEventListener("click", function(event) {
+    submitButton(event);
+});
+
+hsBtn.addEventListener("click", function(event) {
+    hsButton(event);
+});
+
+
+
 
 //STEP 3: Timer
 //Starts at 0 on quiz screen

@@ -11,19 +11,19 @@
 
 <body>
     <header>
-        <h4 class="highscore">View high scores</h4>
+        <h4 class="hsBtn">View high scores</h4>
         <h4 class="timer">Time: (#)</h4>
     </header>
     
     <main class="page-content" id="page-content">
+        <!--Quiz Title Page-->
         <section id="quizInitialPage">
-            <!--Quiz Question-->
             <h2 class="quizTitle">Coding Quiz Challenge</h2>
             <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
             <button id="startBtn">Start Quiz</button>
         </section>
+        <!--Quiz Options-->
         <section id="quizOptions" class="hidden">
-            <!--Quiz Options-->
             <h1 id="quizQuestion"></h1>
             <!--Button Placeholder-->
             <button id="btn1"></button>
@@ -31,13 +31,28 @@
             <button id="btn3"></button>
             <button id="btn4"></button>
         </section>
+        <!--High Score-->
         <section id="highScore" class="hidden">
-            <!--High Score-->
             <h2 id="scoreH2"></h2>
-                <label for="name">Enter your name:</label>
+                <label for="name">Enter your initials:</label>
                 <input type="text" id="name" name="name"><br><br>
             <button id="goBackBtn">go back</button>
             <button id="submitBtn">submit</button>
+        </section>
+        <!--Results Page-->
+        <section id="resultsPage" class="hidden">
+            <h2 id="highScoreList">High Scores:</h2>
+            <ul>
+                <li>
+                    Placeholder 1
+                </li>
+                <li>
+                    Placeholder 2
+                </li>
+                <li>
+                    Placeholder 3
+                </li>
+            </ul>
         </section>
         <footer class="hidden" id="result">
             Result Placeholder
