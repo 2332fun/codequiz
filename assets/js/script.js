@@ -220,9 +220,6 @@ hsBtn.addEventListener("click", function(event) {
     hsButton(event);
 });
 
-
-
-
 //STEP 3: Timer
 //Starts at 0 on quiz screen
 //Goes to 75 on start click
