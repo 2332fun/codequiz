@@ -57,6 +57,7 @@ var btn4 = document.getElementById("btn4");
 //page changing btn global variables
 var startBtn = document.getElementById("startBtn");
 var goBackBtn = document.getElementById("goBackBtn");
+var goBackBtn2 = document.getElementById("goBackBtn2");
 var submitBtn = document.getElementById("submitBtn");
 var hsBtn = document.getElementById("hsBtn");
 
@@ -84,6 +85,16 @@ var goBackButton = function(event) {
     hiddenScore.className = "hidden";
     //unhide quizInitialPage
     quizInit.classList.remove("hidden");
+    goBackBtn2.className = "hidden";
+    questionNumber = 0;
+};
+
+var goBackButton2 = function(event) {
+    var btnClicked = event.target;
+    console.log(btnClicked);
+    resultsPage.className = "hidden";
+    quizInit.classList.remove("hidden");
+    goBackBtn2.className = "hidden";
 };
 
 var submitButton = function(event) {
@@ -103,6 +114,7 @@ var submitButton = function(event) {
     //unhide quizInitialPage
     quizInit.classList.remove("hidden");
     console.log(name);
+    questionNumber = 0;
     }
 };
 
@@ -115,6 +127,7 @@ var hsButton = function(event) {
     quizInit.className = "hidden";
     hiddenQuiz.className = "hidden";
     resultsPage.classList.remove("hidden");
+    goBackBtn2.classList.remove("hidden");
 };
 
 var startButton = function(questionNumber) {
@@ -122,6 +135,7 @@ var startButton = function(questionNumber) {
     //set timer to 75 seconds
     //hide initial page by adding hidden class to quizInit
     quizInit.className = "hidden";
+    
 
     //unhide quizOptions
     var quizOptions = document.getElementById("quizOptions");
@@ -210,6 +224,10 @@ startBtn.addEventListener("click", function() {
 
 goBackBtn.addEventListener("click", function(event) {
     goBackButton(event);
+});
+
+goBackBtn2.addEventListener("click", function(event) {
+    goBackButton2(event);
 });
 
 submitBtn.addEventListener("click", function(event) {
