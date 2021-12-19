@@ -87,6 +87,7 @@ var goBackButton = function(event) {
     quizInit.classList.remove("hidden");
     goBackBtn2.className = "hidden";
     questionNumber = 0;
+    highScore = 0;
 };
 
 var goBackButton2 = function(event) {
@@ -109,12 +110,22 @@ var submitButton = function(event) {
     alert("You can't leave an empty name.");
     }
     else {
+    var list1 = document.createElement("LI");
+    if (highScore === 1) {
+        var textlist1 = document.createTextNode(name + " scored " + highScore + " point!");
+    }
+    else {
+        var textlist1 = document.createTextNode(name + " scored " + highScore + " points!");
+    }
+    list1.appendChild(textlist1);
+    document.getElementById("highScoreList").appendChild(list1);
     //hide highscore
     hiddenScore.className = "hidden";
     //unhide quizInitialPage
     quizInit.classList.remove("hidden");
     console.log(name);
     questionNumber = 0;
+    highScore = 0;
     }
 };
 
