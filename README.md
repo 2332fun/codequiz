@@ -23,8 +23,8 @@ No installation required. Follow the link listed under Usage below or in the Des
 
 ## Usage
 
-///FIX!!!///* [Link to Webpage](https://2332fun.github.io/WorkDayScheduler/)
-///FIX!!!///* [Screenshot](assets/images/screenshot.png)
+* [Link to Webpage](https://2332fun.github.io/codequiz/)
+* [Screenshot](assets/images/screenshot.png)
 
 ## Credits
 
@@ -32,11 +32,6 @@ No installation required. Follow the link listed under Usage below or in the Des
 * [License Link](https://choosealicense.com/licenses/gpl-3.0/): Used to determine and copy the correct license for the project found in License below and the COPYING.txt file.
 * [Contributor Covenant Link](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md): Used to obtain a proper code of conduct for contribution found in Contributing below.
 * [Markdown Guide](https://www.markdownguide.org/basic-syntax/): Used to setup the format of the README.md.
-///FIX!!!///* [Google Fonts](https://fonts.google.com/): Used for the font.
-///FIX!!!///* [JQuery](https://api.jquery.com/): Used within the javascript coding.
-///FIX!!!///* [Boostrap](https://getbootstrap.com/docs/4.0/layout/grid/): Used for setting up the layout of the page.
-///FIX!!!///* [Moment.js](https://momentjs.com/): Used for the clock.
-///FIX!!!///* [FontAwesome](https://fontawesome.com/v5.15/icons/save): Used for the save icon.
 
 ## License
 
@@ -56,7 +51,7 @@ You should have received a copy of the GNU General Public License along with thi
 
 ## Features
 
-///FIX!!!///The website has a clock that keeps track of the time the user opened the webpage, along with a save button feature for keeping their changes.
+The website has the ability to run a timer, deduct time when the wrong answer is chosen, and for the user to submit their high score to local storage for future viewing.
 
 ## Contributing
 

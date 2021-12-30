@@ -1,52 +1,38 @@
-// AS A coding boot camp student
-// I WANT to take a timed quiz on JavaScript fundamentals that stores high scores
-// SO THAT I can gauge my progress compared to my peers
-
-// GIVEN I am taking a code quiz
-// WHEN I click the start button
-// THEN a timer starts and I am presented with a question
-// WHEN I answer a question
-// THEN I am presented with another question
-// WHEN I answer a question incorrectly
-// THEN time is subtracted from the clock
-// WHEN all questions are answered or the timer reaches 0
-// THEN the game is over
-// WHEN the game is over
-// THEN I can save my initials and score
-
 //array for questions, options, and correct answer
-var objArray = [{
+var objArray = [
+  {
     question: "Placeholder question 1",
     btn1: "Button 1 Text question 1",
     btn2: "Button 2 Text question 1",
     btn3: "Button 3 Text question 1",
     btn4: "Button 4 Text question 1",
-    answer: "Button 1 Text question 1"
-},
-{
+    answer: "Button 1 Text question 1",
+  },
+  {
     question: "Placeholder question 2",
     btn1: "Button 1 Text question 2",
     btn2: "Button 2 Text question 2",
     btn3: "Button 3 Text question 2",
     btn4: "Button 4 Text question 2",
-    answer: "Button 3 Text question 2"
-},
-{
+    answer: "Button 3 Text question 2",
+  },
+  {
     question: "Placeholder question 3",
     btn1: "Button 1 Text question 3",
     btn2: "Button 2 Text question 3",
     btn3: "Button 3 Text question 3",
     btn4: "Button 4 Text question 3",
-    answer: "Button 2 Text question 3"
-},
-{
+    answer: "Button 2 Text question 3",
+  },
+  {
     question: "Placeholder question 4",
     btn1: "Button 1 Text question 4",
     btn2: "Button 2 Text question 4",
     btn3: "Button 3 Text question 4",
     btn4: "Button 4 Text question 4",
-    answer: "Button 4 Text question 4"
-}];
+    answer: "Button 4 Text question 4",
+  },
+];
 
 //option btn global variables
 var btn1 = document.getElementById("btn1");
@@ -75,217 +61,192 @@ var questionNumber = 0;
 //highscore counter global variable
 var highScore = 0;
 
+var highScoreUl = document.getElementById("highScoreList");
+
+// timer variables
+var timeLeft = 75;
 var timeInterval;
+var timerEl = document.getElementById("timer");
+
+var startButton = function () {
+  //Start Button: when clicked, starts the quiz, hide initial page by adding hidden class to quizInit
+  quizInit.className = "hidden";
+
+  //unhide quizOptions
+  var quizOptions = document.getElementById("quizOptions");
+  //remove hidden class from quizOptions
+  quizOptions.classList.remove("hidden");
+  countdown();
+  populateQuiz(questionNumber);
+};
+
+var populateQuiz = function () {
+  //get quizQuestion element from document
+  var quizQuestion = document.getElementById("quizQuestion");
+  //make quizQuestion text = objArray's first object named question's text
+  quizQuestion.textContent = objArray[questionNumber].question;
+
+  //give btn1 text content = to objArray 0's btn1
+  btn1.textContent = objArray[questionNumber].btn1;
+  btn2.textContent = objArray[questionNumber].btn2;
+  btn3.textContent = objArray[questionNumber].btn3;
+  btn4.textContent = objArray[questionNumber].btn4;
+
+  btn1.setAttribute("value", objArray[questionNumber].btn1);
+  btn2.setAttribute("value", objArray[questionNumber].btn2);
+  btn3.setAttribute("value", objArray[questionNumber].btn3);
+  btn4.setAttribute("value", objArray[questionNumber].btn4);
+
+  //when btn1 is clicked, listen to event, store event in answerButton function, call answerButton function
+  btn1.addEventListener("click", answerButton);
+  btn2.addEventListener("click", answerButton);
+  btn3.addEventListener("click", answerButton);
+  btn4.addEventListener("click", answerButton);
+};
+
+//create variable answerButton to use event from btn1-4 click, make btnClicked = to the btn clicked in btn1-4
+var answerButton = function () {
+  //Correct Choice Button: when clicked, responds "correct!", takes to next question or highscore page
+  if (this.value === objArray[questionNumber].answer) {
+    console.log("correctresponse");
+    result.className = "border-top";
+    result.textContent = "Correct Answer!";
+    highScore++;
+
+    if (timeLeft < 0) {
+      timeLeft = 0;
+    }
+  }
+  //Wrong Choice Button: when clicked, responds "wrong!", lowers countdown by 10 seconds or highscore page
+  else {
+    console.log("wrongresponse");
+    timeLeft -= 10;
+    result.className = "border-top";
+    result.textContent = "Wrong Answer!";
+
+    if (timeLeft < 0) {
+      timeLeft = 0;
+    }
+  }
+
+  questionNumber++;
+
+  console.log(questionNumber);
+
+  //check if equal to array length, then go next question or end quiz
+  if (questionNumber === objArray.length) {
+    endQuiz();
+  } else {
+    console.log("Next Q");
+    populateQuiz();
+  }
+};
+
+function countdown() {
+  timeInterval = setInterval(function () {
+    if (timeLeft > 1) {
+      timerEl.textContent = timeLeft + " seconds remaining";
+      timeLeft--;
+    } else if (timeLeft === 1) {
+      timerEl.textContent = timeLeft + " second remaining";
+      timeLeft--;
+    } else {
+      endQuiz();
+    }
+  }, 1000);
+}
+//button event listeners
+
+var endQuiz = function () {
+  if (timeLeft > 0) {
+    scoreH2.textContent = "Finished! Your final score is " + highScore;
+  }
+  else {
+    scoreH2.textContent = "Out of time! Your final score is " + highScore;
+  };
+  clearInterval(timeInterval);
+  timerEl.textContent = "";
+  hiddenScore.classList.remove("hidden");
+
+  //hide quizOptions
+  hiddenQuiz.className = "hidden";
+  //hide answer result
+  result.className = "hidden";
+};
+
+//submit name and highscore and return to the quizInit page
+var submitButton = function () {
+  var nameEl = document.querySelector("#name");
+  var name = nameEl.value.trim();
+
+  //if the input is null, give an alert. if not, store the input
+  if (nameEl.value !== "") {
+    var allScores = JSON.parse(window.localStorage.getItem("allScores")) || [];
+
+    var user = {
+      initials: name,
+      score: highScore,
+    };
+
+    allScores.push(user);
+    console.log(allScores);
+    localStorage.setItem("allScores", JSON.stringify(allScores));
+
+
+    for(var i=0;i<allScores.length; i++){
+      var list1 = document.createElement("li");
+      if (allScores[i].score === 1) {
+        list1.textContent =
+        allScores[i].initials + " scored " + allScores[i].score + " point!"
+      } else {
+        list1.textContent =
+        allScores[i].initials + " scored " + allScores[i].score + " points!"
+      }
+      highScoreUl.appendChild(list1);
+    };
+  }
+};
 
 //go back to quizInit page without submitting name/highscore
 var goBackButton = function (event) {
-    var btnClicked = event.target;
-    console.log(btnClicked);
-    //stop & reset timer
-    //hide highscore
-    hiddenScore.className = "hidden";
-    //unhide quizInitialPage
-    quizInit.classList.remove("hidden");
-    goBackBtn2.className = "hidden";
-    questionNumber = 0;
-    highScore = 0;
+  var btnClicked = event.target;
+  console.log(btnClicked);
+  //stop & reset timer
+  //hide highscore
+  hiddenScore.className = "hidden";
+  //unhide quizInitialPage
+  quizInit.classList.remove("hidden");
+  goBackBtn2.className = "hidden";
+  questionNumber = 0;
+  highScore = 0;
+};
+//High Score Button: changes page to show locally stored high scores.
+var hsButton = function () {
+  hiddenScore.className = "hidden";
+  quizInit.className = "hidden";
+  hiddenQuiz.className = "hidden";
+  resultsPage.classList.remove("hidden");
+  goBackBtn2.classList.remove("hidden");
 };
 
 //go back to the main quiz Init page from the resultsPage
 var goBackButton2 = function (event) {
-    var btnClicked = event.target;
-    console.log(btnClicked);
-    resultsPage.className = "hidden";
-    quizInit.classList.remove("hidden");
-    goBackBtn2.className = "hidden";
+  var btnClicked = event.target;
+  console.log(btnClicked);
+  resultsPage.className = "hidden";
+  quizInit.classList.remove("hidden");
+  goBackBtn2.className = "hidden";
 };
-
-//submit name and highscore and return to the quizInit page
-var submitButton = function (event) {
-    var btnClicked = event.target;
-    console.log(btnClicked);
-    console.log("submit");
-
-    var name = document.querySelector("#name");
-    var nameStore = name.value.trim();
-
-    var user = {
-        "name": nameStore,
-        "highScore": highScore
-    };
-    //if the input is null, give an alert. if not, store the input
-    if (document.getElementById("name").value == "") {
-        alert("You can't leave an empty name.");
-    }
-    else {
-        var list1 = document.createElement("LI");
-        if (highScore === 1) {
-            var textlist1 = document.createTextNode(nameStore + " scored " + highScore + " point!");
-            localStorage.setItem("user", JSON.stringify(user));
-        }
-        else {
-            var textlist1 = document.createTextNode(nameStore + " scored " + highScore + " points!");
-            localStorage.setItem("user", JSON.stringify(user));
-        }
-        list1.appendChild(textlist1);
-        document.getElementById("highScoreList").appendChild(list1);
-        //hide highscore
-        hiddenScore.className = "hidden";
-        //unhide quizInitialPage
-        quizInit.classList.remove("hidden");
-        console.log(name);
-        questionNumber = 0;
-        highScore = 0;
-    }
-};
-
-//High Score Button: changes page to show locally stored high scores.
-var hsButton = function (event) {
-    var btnClicked = event.target;
-    console.log(btnClicked);
-    console.log("highscore");
-    hiddenScore.className = "hidden";
-    quizInit.className = "hidden";
-    hiddenQuiz.className = "hidden";
-    var retrieveHighScore = JSON.parse(localStorage.getItem("user"));
-    textlist1.textContent = retrieveHighScore;
-    console.log(retrieveHighScore)
-    resultsPage.classList.remove("hidden");
-    goBackBtn2.classList.remove("hidden");
-};
-
-var timerEl = document.getElementById('timer');
-
-var startButton = function () {
-    //Start Button: when clicked, starts the quiz, hide initial page by adding hidden class to quizInit
-    quizInit.className = "hidden";
-
-    //unhide quizOptions
-    var quizOptions = document.getElementById("quizOptions");
-    //remove hidden class from quizOptions
-    quizOptions.classList.remove("hidden");
-    countdown();
-    populateQuiz(questionNumber);
-};
-
-var populateQuiz = function () {
-    //get quizQuestion element from document
-    var quizQuestion = document.getElementById("quizQuestion");
-    //make quizQuestion text = objArray's first object named question's text
-    quizQuestion.textContent = objArray[questionNumber].question;
-
-    //give btn1 text content = to objArray 0's btn1
-    btn1.textContent = objArray[questionNumber].btn1;
-    btn2.textContent = objArray[questionNumber].btn2;
-    btn3.textContent = objArray[questionNumber].btn3;
-    btn4.textContent = objArray[questionNumber].btn4;
-
-    //when btn1 is clicked, listen to event, store event in answerButton function, call answerButton function
-    btn1.addEventListener("click", function (event) {
-        answerButton(event);
-    });
-    btn2.addEventListener("click", function (event) {
-        answerButton(event);
-    });
-    btn3.addEventListener("click", function (event) {
-        answerButton(event);
-    });
-    btn4.addEventListener("click", function (event) {
-        answerButton(event);
-    });
-};
-
-//create variable answerButton to use event from btn1-4 click, make btnClicked = to the btn clicked in btn1-4
-var answerButton = function (event) {
-    var btnClicked = event.target.textContent;
-    console.log(btnClicked);
-    //Correct Choice Button: when clicked, responds "correct!", takes to next question or highscore page
-    if (btnClicked === objArray[questionNumber].answer) {
-        console.log("correctresponse");
-        result.textContent = "Correct Answer!";
-        highScore++;
-        questionNumber++;
-        //go to next question by increasing questionNumber by 1
-    }
-    //Wrong Choice Button: when clicked, responds "wrong!", lowers countdown by 10 seconds or highscore page
-    else {
-        console.log("wrongresponse");
-        result.textContent = "Wrong Answer!";
-        questionNumber++;
-    }
-    //check if equal to array length, then go next question or end quiz
-    if (questionNumber === objArray.length) {
-        //show highscore
-        hiddenScore.classList.remove("hidden");
-        console.log(highScore);
-        console.log(scoreH2.textContent);
-        scoreH2.textContent = "All done! Your final score is " + highScore;
-        //hide quizOptions
-        hiddenQuiz.className = "hidden";
-        //hide answer result
-        result.className = "hidden";
-    }
-    else {
-        startButton(questionNumber);
-    }
-};
-var timeLeft = 75;
-
-function countdown() {
-
-    timeInterval = setInterval(function () {
-        if (timeLeft > 1) {
-            timerEl.textContent = timeLeft + ' seconds remaining';
-            timeLeft--;
-        } else if (timeLeft === 1) {
-            timerEl.textContent = timeLeft + ' second remaining';
-            timeLeft--;
-        } else {
-
-            clearInterval(timeInterval);
-            timerEl.textContent = '';
-            hiddenScore.classList.remove("hidden");
-            scoreH2.textContent = "Out of time! Your final score is " + highScore;
-            //hide quizOptions
-            hiddenQuiz.className = "hidden";
-            //hide answer result
-            result.className = "hidden";
-        }
-    }, 1000);
-}
-//button event listeners
-
 startBtn.addEventListener("click", startButton);
 
 goBackBtn.addEventListener("click", function (event) {
-    goBackButton(event);
+  goBackButton(event);
 });
 
 goBackBtn2.addEventListener("click", function (event) {
-    goBackButton2(event);
+  goBackButton2(event);
 });
 
-submitBtn.addEventListener("click", function (event) {
-    submitButton(event);
-});
+submitBtn.addEventListener("click", submitButton);
 
-hsBtn.addEventListener("click", function (event) {
-    hsButton(event);
-});
-
-//STEP 3: Timer
-//Starts at 0 on quiz screen
-//Goes to 75 on start click
-//Counts down 1 per second
-//Lowers by 10 on Wrong Choice Button clicked
-//Goes to "outoftime" screen when hits 0
-//stops counting when quiz is finished within time limit
-
-//STEP 4: High Score
-//If completed before timer is out, grabs timer #, stores it as highscore
-//Locally store name and highscore
-
-// Set up local Storage
-// Set up Timer
-// Fill out questions
-// Refactor
+hsBtn.addEventListener("click", hsButton);
