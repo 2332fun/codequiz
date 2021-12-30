@@ -163,7 +163,7 @@ var endQuiz = function () {
   }
   else {
     scoreH2.textContent = "Out of time! Your final score is " + highScore;
-  };
+  }
   clearInterval(timeInterval);
   timerEl.textContent = "";
   hiddenScore.classList.remove("hidden");
@@ -174,7 +174,7 @@ var endQuiz = function () {
   result.className = "hidden";
 };
 
-//submit name and highscore and return to the quizInit page
+//submit name and highscore
 var submitButton = function () {
   var nameEl = document.querySelector("#name");
   var name = nameEl.value.trim();
@@ -192,7 +192,7 @@ var submitButton = function () {
     console.log(allScores);
     localStorage.setItem("allScores", JSON.stringify(allScores));
 
-
+    localStorage.getItem('allScores');
     for(var i=0;i<allScores.length; i++){
       var list1 = document.createElement("li");
       if (allScores[i].score === 1) {
