@@ -24,7 +24,7 @@ No installation required. Follow the link listed under Usage below or in the Des
 ## Usage
 
 * [Link to Webpage](https://2332fun.github.io/codequiz/)
-* [Screenshot](assets/images/screenshot.png)
+![Screenshot](/assets/images/screenshot.PNG "Screenshot")
 
 ## Credits
 
